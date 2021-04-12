@@ -95,7 +95,7 @@
     border: 1px solid black;
     width: 500px;
     height: 170px;
-    background-image: url('/iphone_preview.jpg');
+    background-image: url('https://raw.githubusercontent.com/cimargithub/templatebuilder/main/iphone_preview.jpg');
     background-size: 100%;
     padding: 10px 0 10px 30px;
     margin:auto;
