@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="./builder.css" rel="stylesheet">
+        <script src="./builder.js"></script>
+        <script src="https://cdn.tiny.cloud/1/fxy4x5ogxonmeec2q1wdhit0bt7wjxkm2azderrno8xu09rk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+              tinymce.init({
+                plugins: 'image code, link',
+                selector: 'textarea',  // change this value according to the HTML
+                toolbar: 'link image | undo redo | bold italic',
+                setup: function(ed) {
+                ed.on('keyup', function(e) {
+                  check_submit();
+                  });
+                }
+              });
+        </script>
+    </head>
+    <body>
+      <div class="header">
+        <div class="switch" id="display_email">
+          SHOW EMAIL
+        </div>
+        <div class="switch" id="display_preview">
+          SHOW PREVIEW
+        </div>
+        <div class="switch" id="display_html">
+          SHOW HTML
+        </div>
+
+      </div>
+        <div class="top_div">
+            <div class="inner_editor">
+              <div class="raw_editor">
+                <div class="editor_subheader">Custom Content</div>
+                <textarea></textarea>
+              </div>
+              <br>
+              <br>
+              <br>
+              <div class="editor_subheader">Subject Line</div>
+              <input type="text" maxlength="40" class="subject_line" id="subject_text" value="{$from} has shared a study with you">
+              <br>
+              <br>
+              <div class="editor_subheader">Preview Text</div>
+              <input type="text" maxlength="100" class="subject_line" id="preview_text" value="Image management services are provided by Cimar">
+              <br>
+              <div class="copy_button switch">COPY HTML TO CLIPBOARD</div>
+            </div>
+
+            <div class="right_flex">
+            <div class="visual_preview">
+              <div class="preview_subheader">Desktop / In-App View</div>
+              <div class="email_top">
+                <div class="email_sender">Cimar Cloud Admin</div>
+                <div class="email_subject" id="subject_preview">Subject line here</div>
+                <div class="email_preview" id="preview_preview">Preview line here that goes on...</div>
+              </div>
+              <div class="preview_subheader">Smartphone Notification View</div>
+              <div class="emailphone_top">
+                <div class="emailphone_sender">Cimar Cloud Admin</div>
+                <div class="emailphone_subject" id="subject_preview">Subject line here</div>
+                <div class="emailphone_preview" id="preview_preview">Preview line here that goes on...</div>
+              </div>
+            </div>
+            <div class="raw_code_div">
+              <div class="raw_code" id="html_copy"></div>
+            </div>
+            <div class="visual_email">
+                <table style="margin: 0 auto; width: 100%; height: 100%; padding: 20px; background-color: #f4f4f4;">
+                    <td>
+                
+                      <!-- "Inner Table" / This is the main email table -->
+                      <table style="padding-right: 20px; padding-left: 20px; margin: 0 auto; width: 700px; border: 1px solid #c3c3c3; background-color: #ffffff;">
+                
+                        <!-- Row 1 / Header -->
+                        <tr style="text-align: center;">
+                          <td style="padding: 20px;">
+                            <img src="https://www.cimar.co.uk/wp-content/uploads/2021/03/190-80.jpg" 
+                            class="hs-image-widget " 
+                            width="239px" 
+                            alt="{$account_name} logo" 
+                            title="{$account_name} Medical Imaging Cloud" 
+                            style="vertical-align: bottom; 
+                                max-height: 149px; 
+                                max-width: 239px; 
+                                border: 0px;">
+                          </td>
+                        </tr>
+                
+                        <!-- Row 2 / Divider -->
+                        <tr>
+                          <td>
+                            <p style="height: 20px; border-top: 2px solid #c3c3c3; margin: 0 auto;">&zwnj;&nbsp;</p>
+                          </td>
+                        </tr>
+                
+                        <!-- Row 3 / Custom Content to be made in <p> tags -->
+                        <tr>
+                          <td id="custom_content">
+                            <p>{$from} has shared a study with you.</p>
+                            <p>Message from sharer: {$message}</p>
+                            <p>To view the study, please register with the following link using the email address to which this message was sent:</p>
+                            <p><a class="text-link" style="text-decoration: none; color: rgb(255, 163, 0); font-weight: bold" href='{url_add_params("https://$site/join.html", "email", $to_email)}'>Register here</a></p>
+                            <p>Once you have registered you can view the study and any documents or reports attached to it.</p>
+                            <p>For a 2 minute interactive guide on using Cimar please click <span><strong><a href="https://support.cimar.co.uk/article/212-external-user-guide" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">here</a></strong></span>.</p>
+                            <p>For system support please click <span><strong><a href="https://support.cimar.co.uk" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0) !important;">here</a></strong></span>.</p>                                                                                                       
+                            <p>Thanks,<br>
+                            Cimar Support Team</p>
+                            <br>
+                          </td>
+                        </tr>
+                
+                        <!-- Row 4 / Divider -->
+                        <tr>
+                          <td>
+                            <p style="height: 20px; border-top: 2px solid #c3c3c3; margin: 0 auto;">&zwnj;&nbsp;</p>
+                          </td>
+                        </tr>
+                
+                        <!-- Row 5 / Inner Footer -->
+                        <tr>
+                          <td>
+                            <p>Image management services are provided by Cimar, the UK's premier medical imaging cloud platform. For full info on our Cloud PACS and workflow solutions, please visit:<br><br>
+                              W. <span><strong><a href="https://www.cimar.co.uk/" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">www.cimar.co.uk</a></strong></span><br>
+                              P. <span><strong><a href="tel:+44 (0) 20 3904 0330" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">+44 (0) 20 3904 0330</a></strong></span><br>
+                              E. <span><strong><a href="mailto:sales@cimar.co.uk" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">sales@cimar.co.uk</a></strong></span>.</p>
+                            
+                            <p style="text-align: center; height: 80px;">
+                              <a href="https://www.cimar.co.uk/" target="_blank" style="border: 0px;">
+                                <img src="https://www.cimar.co.uk/wp-content/uploads/2021/03/190-80.jpg" 
+                                    class="hs-image-widget" 
+                                    width="119.5px" 
+                                    alt="Cimar - Your Medical Imaging Cloud" 
+                                    title="Cimar - Your Medical Imaging Cloud" 
+                                    srcset="https://cloud.cimar.co.uk/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 365w, https://cloud.cimar.co.uk/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 730w" 
+                                    sizes="(max-width: 119.5px) 100vw, 119.5px" 
+                                    style="vertical-align: bottom;
+                                            text-align: center;
+                                            max-height: 74.5px; 
+                                            max-width: 119.5px; 
+                                            border: 0px;">
+                              </a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                
+                      <!-- Outer Footer -->
+                      <table style="padding-right: 20px; padding-left: 20px; margin: 0 auto; width: 800px;">
+                        <tr>
+                          <p id="footer" align="center" style="margin-top: 30px; margin-bottom: 1em; font-family: Geneva, Verdana, Arial, Helvetica, sans-serif; text-align: center; font-size: 12px; line-height: 1.34em; display: block;" >
+                            Cimar UK Ltd &nbsp;Kemp House &nbsp;152 - 160 City Rd &nbsp;London &nbsp;EC1V 2PD<span class="Apple-converted-space">&nbsp;</span><br >    
+                        </tr>
+                      </table>
+                    </td>
+                  </table>
+            </div>
+          </div>
+
+        </div>
+
+    </body>
+</html>
+
+<div id="top_template">
+  
+&lt!DOCTYPE html&gt
+&lthtml lang="en"&gt
+&lthead&gt
+  <meta charset="utf-8"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=7" />
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <!--[if !mso]><!-- -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!--<![endif]-->
+
+  <title>Cimar</title> 
+  <style type="text/css">
+      @media only screen and (max-width: 600px) {
+        #footer{
+          font-size: 10px;
+        }
+      }
+  </style>
+</head>
+
+&ltbody style="color:#54585a; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5em;"&gt
+
+    <!-- Preview Text; This will display as a subheader preview in email clients and on phone lock screens but NOT inside the email body -->
+  <div style="display: none; max-height: 0px; overflow: hidden;" id="custom_preview_id">
+    Image Management Services are Provided by Cimar
+  </div>
+    
+    <!-- &zwnj;&nbsp; will insert dead whitespace after the preview text so we won't have other content fill up into the preview. -->
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+    </div>
+
+  <!-- "Outer Table" / This is the "Body" of gray behind the main email.-->
+  <table style="margin: 0 auto; width: 100%; height: 100%; padding: 20px; background-color: #f4f4f4;">
+    <td>
+
+      <!-- "Inner Table" / This is the main email table -->
+      <table style="padding-right: 20px; padding-left: 20px; margin: 0 auto; width: 700px; border: 1px solid #c3c3c3; background-color: #ffffff;">
+
+        <!-- Row 1 / Header -->
+        <tr style="text-align: center;">
+          <td style="padding: 20px;">
+            <img src="https://{$site}/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1" 
+            class="hs-image-widget " 
+            width="239px" 
+            alt="{$account_name} logo" 
+            title="{$account_name} Medical Imaging Cloud" 
+            srcset="https://{$site}/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 365w, https://{$site}/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 730w" 
+            sizes="(max-width: 239px) 100vw, 239px" 
+            style="vertical-align: bottom; 
+                max-height: 149px; 
+                max-width: 239px; 
+                border: 0px;">
+          </td>
+        </tr>
+
+        <!-- Row 2 / Divider -->
+        <tr>
+          <td>
+            <p style="height: 20px; border-top: 2px solid #c3c3c3; margin: 0 auto;">&zwnj;&nbsp;</p>
+          </td>
+        </tr>
+
+        <!-- Row 3 / Custom Content to be made in <p> tags -->
+        <tr>
+          <td id="custom_content_id">
+</td>
+</tr>
+
+<!-- Row 4 / Divider -->
+<tr>
+  <td>
+    <p style="height: 20px; border-top: 2px solid #c3c3c3; margin: 0 auto;">&zwnj;&nbsp;</p>
+  </td>
+</tr>
+
+<!-- Row 5 / Inner Footer -->
+<tr>
+  <td>
+    <p>Image management services are provided by Cimar, the UK's premier medical imaging cloud platform. For full info on our Cloud PACS and workflow solutions, please visit:<br><br>
+      W. <span><strong><a href="https://www.cimar.co.uk/" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">www.cimar.co.uk</a></strong></span><br>
+      P. <span><strong><a href="tel:+44 (0) 20 3904 0330" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">+44 (0) 20 3904 0330</a></strong></span><br>
+      E. <span><strong><a href="mailto:sales@cimar.co.uk" target="_blank" style="text-decoration: none; color: rgb(255, 163, 0);">sales@cimar.co.uk</a></strong></span>.</p>
+    
+    <p style="text-align: center; height: 80px;">
+      <a href="https://www.cimar.co.uk/" target="_blank" style="border: 0px;">
+        <img src="https://www.cimar.co.uk/wp-content/uploads/2021/03/190-80.jpg" 
+            class="hs-image-widget" 
+            width="119.5px" 
+            alt="Cimar - Your Medical Imaging Cloud" 
+            title="Cimar - Your Medical Imaging Cloud" 
+            srcset="https://cloud.cimar.co.uk/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 365w, https://cloud.cimar.co.uk/api/v3/brand/asset?name=image_2&namespace_id={{{StorageNamespace}}}&no_error=1 730w" 
+            sizes="(max-width: 119.5px) 100vw, 119.5px" 
+            style="vertical-align: bottom;
+                    text-align: center;
+                    max-height: 74.5px; 
+                    max-width: 119.5px; 
+                    border: 0px;">
+      </a>
+    </p>
+  </td>
+</tr>
+</table>
+
+<!-- Outer Footer -->
+<table style="padding-right: 20px; padding-left: 20px; margin: 0 auto; width: 800px;">
+<tr>
+  <p id="footer" align="center" style="margin-top: 30px; margin-bottom: 1em; font-family: Geneva, Verdana, Arial, Helvetica, sans-serif; text-align: center; font-size: 12px; line-height: 1.34em; display: block;" >
+    Cimar UK Ltd &nbsp;Kemp House &nbsp;152 - 160 City Rd &nbsp;London &nbsp;EC1V 2PD<span class="Apple-converted-space">&nbsp;</span><br >    
+</tr>
+</table>
+</td>
+</table>
+&lt/body&gt
+&lt/html&gt
+</div>

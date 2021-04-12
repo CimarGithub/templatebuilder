@@ -1,0 +1,235 @@
+.header{
+    height: 40px;
+    width: 40%;
+    display: flex;
+    padding: 20px;
+}
+
+.switch{
+    max-width: 180px;
+    flex: auto;
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: #ffa300;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.switch:hover{
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.top_div{
+    display: flex;   
+    width: 100%;
+    height: 100%;
+}
+
+.right_flex{
+    flex: auto;
+}
+
+.visual_email{
+    margin-top: 30px;
+    height: auto;
+    border: 1px solid black;
+}
+
+.visual_preview{
+    margin-top: 30px;
+    display: none;
+    height: 700px;
+    width: 800px;
+}
+
+.preview_subheader{
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.email_top{
+    border: 1px solid black;
+    width: 350px;
+    height: 60px;
+    background-color: #fafafa;
+    padding: 10px 0 10px 30px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.email_sender{
+    font-size: 18px;
+    font-weight: 100;
+    font-family: sans-serif;
+    color: #000000;
+}
+
+.email_subject{
+    font-size: 14px;
+    margin: 2px;
+    font-weight: 100;
+    font-family: sans-serif;
+    color: #000000;
+    overflow: hidden;
+}
+
+.email_preview{
+    font-size: 14px;
+    margin: 2px;
+    height: 19px;
+    font-weight: 100;
+    font-family: sans-serif;
+    color: #777777;
+    overflow: hidden;
+}
+
+.emailphone_top{
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    border: 1px solid black;
+    width: 500px;
+    height: 170px;
+    background-image: url('/iphone_preview.jpg');
+    background-size: 100%;
+    padding: 10px 0 10px 30px;
+    margin:auto;
+}
+
+.emailphone_sender{
+    position: absolute;
+    top: 50px;
+    left: 23px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #000000;
+}
+
+.emailphone_subject{
+    position: absolute;
+    top: 75px;
+    left: 23px;
+    width: 400px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #000000;
+    overflow: hidden;
+}
+
+.emailphone_preview{
+    position: absolute;
+    top: 100px;
+    left: 23px;
+    width: 480px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: sans-serif;
+    color: #333333;
+    overflow: hidden;
+}
+
+.inner_editor{
+    flex:auto;
+    height: 100%;
+    min-width: 40%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.editor_subheader{
+    font-size: 20px;
+    font-weight: bold;
+    margin: -20px 0 5px 5px;
+}
+
+.raw_code_div{
+    width: 90%;
+    margin: 20px auto;
+    display: block;
+}
+
+.raw_code{
+    width: calc(100% - 40px);
+    height: 400px !important;
+    flex: auto;
+    border: 1px solid black !important;
+    overflow: auto;
+    padding: 20px;
+    display: block;
+}
+
+.raw_editor{
+    width: 100%;
+    height: 400px;
+    flex: auto;
+}
+
+.subject_line{
+    width: calc(100% - 20px);
+    height: 30px !important;
+    flex: auto;
+    border: 3px solid #092aa7;
+    border-radius: 20px !important;
+    overflow: auto;
+    padding: 10px;
+}
+
+.subject_line:focus{
+    outline: none;
+}
+
+.copy_button{
+    min-width: 360px !important;
+    border:1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffa300;
+    margin: 20px auto;
+}
+
+.copy_button:hover{
+    cursor: pointer;
+}
+
+.display_button{
+    width: 200px;
+    height: auto;
+    border:1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffa300;
+    margin: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.tox-tinymce{
+    height: 400px !important;
+    border: 3px solid #092aa7 !important;
+    border-radius: 20px !important;
+}
+
+.tox-statusbar{
+    display: none !important;
+}
+
+#top_template, #bottom_template{
+    display: none;
+}
