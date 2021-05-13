@@ -108,7 +108,6 @@ function convert_html(){
             newcode += code[i]
         }
     }
-    code_display.innerHTML = subject_line.value + "<br>"
     code_display.innerHTML += newcode
 }
 
